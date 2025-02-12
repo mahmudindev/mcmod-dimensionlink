@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+issueTrackerURL = "https://github.com/mahmudindev/mcmod-dimensionlink/issues"
+license = "ARR"
+
+[[mods]]
+modId = "dimensionlink"
+version = "${version}"
+displayName = "Dimension Link"
+authors = "mahmudindev"
+description = '''
+Create portal link between dimensions to make custom world sets.
+'''
+#logoFile = ""
+
+[[dependencies.dimensionlink]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.dimensionlink]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "dimensionlink",
+  "version": "${version}",
+  "name": "Dimension Link",
+  "description": "Create portal link between dimensions to make custom world sets.",
+  "authors": [
+    "mahmudindev"
+  ],
+  "contact": {
+    "homepage": "https://github.com/mahmudindev",
+    "sources": "https://github.com/mahmudindev/mcmod-dimensionlink"
+  },
+  "license": "ARR",
+  "icon": "assets/dimensionlink/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.mahmudindev.mcmod.dimensionlink.fabric.DimensionLinkFabric"
+    ],
+    "client": [
+      "com.github.mahmudindev.mcmod.dimensionlink.fabric.client.DimensionLinkFabricClient"
+    ]
+  },
+  "mixins": [
+    "dimensionlink.mixins.json",
+    "dimensionlink_platform.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

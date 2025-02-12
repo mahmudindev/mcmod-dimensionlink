@@ -1,0 +1,15 @@
+{
+  "auto_link": {
+    "exact_overworld_path": "overworld",
+    "exact_the_nether_path": "the_nether",
+    "exact_the_end_path": "the_end"
+  },
+  "worlds": [
+    {
+      "overworld": "customdimension:overworld_mirror",
+      "the_nether": "customdimension:the_nether_mirror",
+      "the_end": "customdimension:the_end_mirror",
+      "disable_end_respawn": false
+    }
+  ]
+}

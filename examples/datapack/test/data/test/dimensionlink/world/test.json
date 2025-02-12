@@ -1,0 +1,6 @@
+{
+  "overworld": "test:one",
+  "the_nether": "test:two",
+  "the_end": "test:three",
+  "disable_end_respawn": true
+}
