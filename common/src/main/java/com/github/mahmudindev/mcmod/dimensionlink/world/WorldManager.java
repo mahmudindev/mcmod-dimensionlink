@@ -35,13 +35,15 @@ public class WorldManager {
                     ""
             );
 
+            if (!resourcePath.startsWith("world/")) {
+                return;
+            }
+
             try {
-                if (resourcePath.startsWith("world/")) {
-                    addWorld(parser.fromJson(
-                            JsonParser.parseReader(resource.openAsReader()),
-                            WorldData.class
-                    ), resourceLocation.getNamespace());
-                }
+                addWorld(parser.fromJson(
+                        JsonParser.parseReader(resource.openAsReader()),
+                        WorldData.class
+                ), resourceLocation.getNamespace());
             } catch (IOException e) {
                 DimensionLink.LOGGER.error("Failed to read datapack", e);
             }
@@ -136,46 +138,6 @@ public class WorldManager {
         WorldData worldData = getWorld(level);
         if (worldData != null) {
             return worldData.getTheEndKey();
-        }
-
-        return fallback;
-    }
-
-    public static ResourceKey<Level> getWorldLinkNether(
-            Level level,
-            ResourceKey<Level> fallback
-    ) {
-        ResourceKey<Level> dimension = level.dimension();
-
-        WorldData worldData = getWorld(level);
-        if (worldData != null) {
-            if (dimension == worldData.getOverworldKey()) {
-                return worldData.getTheNetherKey();
-            }
-
-            if (dimension == worldData.getTheNetherKey()) {
-                return worldData.getOverworldKey();
-            }
-        }
-
-        return fallback;
-    }
-
-    public static ResourceKey<Level> getWorldLinkEnd(
-            Level level,
-            ResourceKey<Level> fallback
-    ) {
-        ResourceKey<Level> dimension = level.dimension();
-
-        WorldData worldData = getWorld(level);
-        if (worldData != null) {
-            if (dimension == worldData.getOverworldKey()) {
-                return worldData.getTheEndKey();
-            }
-
-            if (dimension == worldData.getTheEndKey()) {
-                return worldData.getOverworldKey();
-            }
         }
 
         return fallback;

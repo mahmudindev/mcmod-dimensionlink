@@ -40,39 +40,4 @@ public abstract class ServerPlayerMixin {
     ) {
         return WorldManager.getWorldTheEnd(this.serverLevel(), original);
     }
-
-    @ModifyExpressionValue(
-            method = "changeDimension",
-            at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/world/level/Level;END:Lnet/minecraft/resources/ResourceKey;",
-                    ordinal = 0
-            )
-    )
-    private ResourceKey<Level> changeDimensionModifyRespawn0(
-            ResourceKey<Level> original,
-            ServerLevel serverLevel
-    ) {
-        if (WorldManager.disableWorldEndRespawn(
-                this.serverLevel(),
-                serverLevel.dimension()
-        )) {
-            return null;
-        }
-        return WorldManager.getWorldTheEnd(serverLevel, original);
-    }
-
-    @ModifyExpressionValue(
-            method = "changeDimension",
-            at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/world/level/Level;OVERWORLD:Lnet/minecraft/resources/ResourceKey;",
-                    ordinal = 0
-            )
-    )
-    private ResourceKey<Level> changeDimensionModifyRespawn1(
-            ResourceKey<Level> original
-    ) {
-        return WorldManager.getWorldOverworld(this.serverLevel(), original);
-    }
 }

@@ -20,7 +20,7 @@ public abstract class EntityMixin {
                     target = "Lnet/minecraft/world/level/Level;END:Lnet/minecraft/resources/ResourceKey;"
             )
     )
-    private ResourceKey<Level> changeDimensionModifyEndPlatform(
+    private ResourceKey<Level> changeDimensionEndPlatform(
             ResourceKey<Level> original
     ) {
         return WorldManager.getWorldTheEnd(this.level(), original);

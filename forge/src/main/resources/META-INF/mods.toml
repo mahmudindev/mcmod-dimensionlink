@@ -11,7 +11,7 @@ authors = "mahmudindev"
 description = '''
 Create portal link between dimensions to make custom world sets.
 '''
-#logoFile = ""
+logoFile = "assets/dimensionlink/icon.png"
 
 [[dependencies.dimensionlink]]
 modId = "forge"
