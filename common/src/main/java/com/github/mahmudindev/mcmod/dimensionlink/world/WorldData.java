@@ -26,7 +26,7 @@ public class WorldData {
             return null;
         }
 
-        return ResourceKey.create(Registries.DIMENSION, new ResourceLocation(id));
+        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(id));
     }
 
     public void setOverworld(String overworld) {
@@ -44,7 +44,7 @@ public class WorldData {
             return null;
         }
 
-        return ResourceKey.create(Registries.DIMENSION, new ResourceLocation(id));
+        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(id));
     }
 
     public void setTheNether(String theNether) {
@@ -62,7 +62,7 @@ public class WorldData {
             return null;
         }
 
-        return ResourceKey.create(Registries.DIMENSION, new ResourceLocation(id));
+        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(id));
     }
 
     public void setTheEnd(String theEnd) {
