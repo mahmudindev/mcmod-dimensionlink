@@ -23,7 +23,7 @@ public class WorldManager {
         WORLDS.clear();
 
         Config config = Config.getConfig();
-        config.getWorlds().forEach(worldData -> addWorld(worldData, null));
+        config.getWorlds().forEach(world -> addWorld(world, null));
 
         Gson parser = new Gson();
         manager.listResources(
@@ -55,13 +55,13 @@ public class WorldManager {
     }
 
     private static WorldData getWorldPartial(ResourceKey<Level> key) {
-        for (WorldData worldData : getWorlds()) {
-            if (key == worldData.getOverworldKey()) {
-                return worldData;
+        for (WorldData world : getWorlds()) {
+            if (key == world.getOverworldKey()) {
+                return world;
             }
 
-            if (key == worldData.getTheNetherKey() || key == worldData.getTheEndKey()) {
-                return worldData;
+            if (key == world.getTheNetherKey() || key == world.getTheEndKey()) {
+                return world;
             }
         }
 
@@ -71,9 +71,9 @@ public class WorldManager {
     public static WorldData getWorld(Level level) {
         ResourceKey<Level> dimension = level.dimension();
 
-        WorldData worldData = getWorldPartial(dimension);
-        if (worldData != null) {
-            return worldData;
+        WorldData world = getWorldPartial(dimension);
+        if (world != null) {
+            return world;
         }
 
         Config config = Config.getConfig();
@@ -89,18 +89,18 @@ public class WorldManager {
             String cPath = autoLink.getExactTheEndPath();
 
             if (Arrays.asList(aPath, bPath, cPath).contains(resourcePath)) {
-                worldData = new WorldData();
-                worldData.setOverworld("%s:%s".formatted(resourceNamespace, aPath));
-                worldData.setTheNether("%s:%s".formatted(resourceNamespace, bPath));
-                worldData.setTheEnd("%s:%s".formatted(resourceNamespace, cPath));
-                worldData.setDisableEndRespawn(true);
+                world = new WorldData();
+                world.setOverworld("%s:%s".formatted(resourceNamespace, aPath));
+                world.setTheNether("%s:%s".formatted(resourceNamespace, bPath));
+                world.setTheEnd("%s:%s".formatted(resourceNamespace, cPath));
+                world.setDisableEndRespawn(true);
             }
         }
 
-        MinecraftServer minecraftServer = level.getServer();
-        if (worldData != null && minecraftServer != null) {
-            if (minecraftServer.getLevel(worldData.getOverworldKey()) != null) {
-                return worldData;
+        MinecraftServer server = level.getServer();
+        if (world != null && server != null) {
+            if (server.getLevel(world.getOverworldKey()) != null) {
+                return world;
             }
         }
 
@@ -111,9 +111,9 @@ public class WorldManager {
             Level level,
             ResourceKey<Level> fallback
     ) {
-        WorldData worldData = getWorld(level);
-        if (worldData != null) {
-            return worldData.getOverworldKey();
+        WorldData world = getWorld(level);
+        if (world != null) {
+            return world.getOverworldKey();
         }
 
         return fallback;
@@ -123,9 +123,9 @@ public class WorldManager {
             Level level,
             ResourceKey<Level> fallback
     ) {
-        WorldData worldData = getWorld(level);
-        if (worldData != null) {
-            return worldData.getTheNetherKey();
+        WorldData world = getWorld(level);
+        if (world != null) {
+            return world.getTheNetherKey();
         }
 
         return fallback;
@@ -135,9 +135,9 @@ public class WorldManager {
             Level level,
             ResourceKey<Level> fallback
     ) {
-        WorldData worldData = getWorld(level);
-        if (worldData != null) {
-            return worldData.getTheEndKey();
+        WorldData world = getWorld(level);
+        if (world != null) {
+            return world.getTheEndKey();
         }
 
         return fallback;
@@ -147,48 +147,48 @@ public class WorldManager {
             Level level,
             ResourceKey<Level> destination
     ) {
-        WorldData worldData = getWorld(level);
-        if (worldData != null) {
-            if (destination != worldData.getOverworldKey()) {
+        WorldData world = getWorld(level);
+        if (world != null) {
+            if (destination != world.getOverworldKey()) {
                 return false;
             }
 
-            if (level.dimension() != worldData.getTheEndKey()) {
+            if (level.dimension() != world.getTheEndKey()) {
                 return false;
             }
 
-            return worldData.isDisableEndRespawn();
+            return world.isDisableEndRespawn();
         }
 
         return false;
     }
 
     private static void addWorld(
-            WorldData worldData,
+            WorldData world,
             String defaultNamespace
     ) {
         if (defaultNamespace != null) {
-            String overworld = worldData.getOverworld();
+            String overworld = world.getOverworld();
             if (overworld != null && !overworld.contains(":")) {
-                worldData.setOverworld("%s:%s".formatted(defaultNamespace, overworld));
+                world.setOverworld("%s:%s".formatted(defaultNamespace, overworld));
             }
 
-            String theNether = worldData.getTheNether();
+            String theNether = world.getTheNether();
             if (theNether != null && !theNether.contains(":")) {
-                worldData.setTheNether("%s:%s".formatted(defaultNamespace, theNether));
+                world.setTheNether("%s:%s".formatted(defaultNamespace, theNether));
             }
 
-            String theEnd = worldData.getTheEnd();
+            String theEnd = world.getTheEnd();
             if (theEnd != null && !theEnd.contains(":")) {
-                worldData.setTheEnd("%s:%s".formatted(defaultNamespace, theEnd));
+                world.setTheEnd("%s:%s".formatted(defaultNamespace, theEnd));
             }
         }
 
-        ResourceKey<Level> key = worldData.getOverworldKey();
+        ResourceKey<Level> key = world.getOverworldKey();
         if (key == null || getWorldPartial(key) != null) {
             return;
         }
 
-        WORLDS.add(worldData);
+        WORLDS.add(world);
     }
 }

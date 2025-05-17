@@ -28,6 +28,50 @@ public abstract class ServerPlayerMixin {
             BlockPos blockPos
     );
 
+    @ModifyExpressionValue(
+            method = "changeDimension",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/world/level/Level;END:Lnet/minecraft/resources/ResourceKey;",
+                    ordinal = 0
+            )
+    )
+    private ResourceKey<Level> changeDimensionEndRespawn0(
+            ResourceKey<Level> original,
+            ServerLevel serverLevel
+    ) {
+        if (WorldManager.disableWorldEndRespawn(
+                this.serverLevel(),
+                serverLevel.dimension()
+        )) {
+            return null;
+        }
+
+        return WorldManager.getWorldTheEnd(serverLevel, original);
+    }
+
+    @ModifyExpressionValue(
+            method = "changeDimension",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/world/level/Level;OVERWORLD:Lnet/minecraft/resources/ResourceKey;",
+                    ordinal = 0
+            )
+    )
+    private ResourceKey<Level> changeDimensionEndRespawn1(
+            ResourceKey<Level> original,
+            ServerLevel serverLevel
+    ) {
+        if (WorldManager.disableWorldEndRespawn(
+                this.serverLevel(),
+                serverLevel.dimension()
+        )) {
+            return null;
+        }
+
+        return WorldManager.getWorldOverworld(this.serverLevel(), original);
+    }
+
     @WrapOperation(
             method = "changeDimension",
             at = @At(
@@ -67,40 +111,5 @@ public abstract class ServerPlayerMixin {
                 yaw,
                 modifiedRepositionEntity
         );
-    }
-
-    @ModifyExpressionValue(
-            method = "changeDimension",
-            at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/world/level/Level;END:Lnet/minecraft/resources/ResourceKey;",
-                    ordinal = 0
-            )
-    )
-    private ResourceKey<Level> changeDimensionEndRespawn0(
-            ResourceKey<Level> original,
-            ServerLevel serverLevel
-    ) {
-        if (WorldManager.disableWorldEndRespawn(
-                this.serverLevel(),
-                serverLevel.dimension()
-        )) {
-            return null;
-        }
-        return WorldManager.getWorldTheEnd(serverLevel, original);
-    }
-
-    @ModifyExpressionValue(
-            method = "changeDimension",
-            at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/world/level/Level;OVERWORLD:Lnet/minecraft/resources/ResourceKey;",
-                    ordinal = 0
-            )
-    )
-    private ResourceKey<Level> changeDimensionEndRespawn1(
-            ResourceKey<Level> original
-    ) {
-        return WorldManager.getWorldOverworld(this.serverLevel(), original);
     }
 }

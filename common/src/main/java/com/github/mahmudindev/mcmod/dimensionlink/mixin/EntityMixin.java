@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -109,10 +110,9 @@ public abstract class EntityMixin {
             )
     )
     private ResourceKey<Level> findDimensionEntryPointNetherKey1(
-            ResourceKey<Level> original,
-            ServerLevel serverLevel
+            ResourceKey<Level> original
     ) {
-        return WorldManager.getWorldTheNether(serverLevel, original);
+        return WorldManager.getWorldTheNether(this.level(), original);
     }
 
     @WrapOperation(
@@ -126,9 +126,15 @@ public abstract class EntityMixin {
             ServerLevel instance,
             Heightmap.Types types,
             BlockPos blockPos,
-            Operation<BlockPos> original
+            Operation<BlockPos> original,
+            ServerLevel serverLevel
     ) {
         if (WorldManager.disableWorldEndRespawn(this.level(), instance.dimension())) {
+            BlockPos blockPosT = blockPos.offset(0, 1, 0);
+            if (!serverLevel.getBlockState(blockPosT).isAir()) {
+                serverLevel.setBlockAndUpdate(blockPosT, Blocks.AIR.defaultBlockState());
+            }
+
             return blockPos;
         }
 
