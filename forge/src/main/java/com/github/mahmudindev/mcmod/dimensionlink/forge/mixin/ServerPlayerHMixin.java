@@ -19,8 +19,8 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.function.Function;
 
-@Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin {
+@Mixin(value = ServerPlayer.class, priority = 1250)
+public abstract class ServerPlayerHMixin {
     @Shadow public abstract ServerLevel serverLevel();
 
     @Shadow protected abstract void createEndPlatform(

@@ -6,8 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "EntityMixin",
-    "ServerPlayerMixin"
+    "EntityHMixin",
+    "ServerPlayerHMixin"
   ],
   "injectors": {
     "defaultRequire": 1

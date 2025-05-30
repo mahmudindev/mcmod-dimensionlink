@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(Entity.class)
-public abstract class EntityMixin {
+@Mixin(value = Entity.class, priority = 1250)
+public abstract class EntityHMixin {
     @Shadow public abstract Level level();
 
     @ModifyExpressionValue(
@@ -129,15 +129,20 @@ public abstract class EntityMixin {
             Operation<BlockPos> original,
             ServerLevel serverLevel
     ) {
-        if (WorldManager.disableWorldEndRespawn(this.level(), instance.dimension())) {
-            BlockPos blockPosT = blockPos.offset(0, 1, 0);
-            if (!serverLevel.getBlockState(blockPosT).isAir()) {
-                serverLevel.setBlockAndUpdate(blockPosT, Blocks.AIR.defaultBlockState());
-            }
+        BlockPos heightmapPos = original.call(instance, types, blockPos);
 
-            return blockPos;
+        if (WorldManager.disableWorldEndRespawn(this.level(), instance.dimension())) {
+            int y = heightmapPos.getY();
+            if (y <= serverLevel.getMinBuildHeight() || y >= serverLevel.getMaxBuildHeight()) {
+                BlockPos blockPosT = blockPos.offset(0, 1, 0);
+                if (!serverLevel.getBlockState(blockPosT).isAir()) {
+                    serverLevel.setBlockAndUpdate(blockPosT, Blocks.AIR.defaultBlockState());
+                }
+
+                return blockPos;
+            }
         }
 
-        return original.call(instance, types, blockPos);
+        return heightmapPos;
     }
 }

@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.function.Function;
 
-@Mixin(Entity.class)
-public abstract class EntityMixin {
+@Mixin(value = Entity.class, priority = 1250)
+public abstract class EntityHMixin {
     @WrapOperation(
             method = "changeDimension(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraftforge/common/util/ITeleporter;)Lnet/minecraft/world/entity/Entity;",
             at = @At(

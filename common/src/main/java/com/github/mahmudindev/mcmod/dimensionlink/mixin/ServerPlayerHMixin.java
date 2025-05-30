@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin {
+@Mixin(value = ServerPlayer.class, priority = 1250)
+public abstract class ServerPlayerHMixin {
     @Shadow public abstract ServerLevel serverLevel();
 
     @ModifyExpressionValue(

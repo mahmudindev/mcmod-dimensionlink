@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(EndPortalBlock.class)
-public abstract class EndPortalBlockMixin {
+@Mixin(value = EndPortalBlock.class, priority = 1250)
+public abstract class EndPortalBlockHMixin {
     @ModifyExpressionValue(
             method = "entityInside",
             at = @At(
