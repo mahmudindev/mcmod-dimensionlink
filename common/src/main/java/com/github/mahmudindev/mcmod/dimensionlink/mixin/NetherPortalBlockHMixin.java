@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.NetherPortalBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(NetherPortalBlock.class)
-public abstract class NetherPortalBlockMixin {
+@Mixin(value = NetherPortalBlock.class, priority = 1250)
+public abstract class NetherPortalBlockHMixin {
     @ModifyExpressionValue(
             method = "getPortalDestination",
             at = @At(

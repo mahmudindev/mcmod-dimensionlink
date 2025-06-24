@@ -6,9 +6,9 @@
   "client": [
   ],
   "mixins": [
-    "BaseFireBlockMixin",
-    "EndPortalBlockMixin",
-    "NetherPortalBlockMixin"
+    "BaseFireBlockHMixin",
+    "EndPortalBlockHMixin",
+    "NetherPortalBlockHMixin"
   ],
   "injectors": {
     "defaultRequire": 1

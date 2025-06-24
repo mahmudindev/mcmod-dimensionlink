@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.BaseFireBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(BaseFireBlock.class)
-public abstract class BaseFireBlockMixin {
+@Mixin(value = BaseFireBlock.class, priority = 1250)
+public abstract class BaseFireBlockHMixin {
     @ModifyExpressionValue(
             method = "inPortalDimension",
             at = @At(

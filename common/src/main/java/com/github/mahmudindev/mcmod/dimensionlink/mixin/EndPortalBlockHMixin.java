@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 
-@Mixin(EndPortalBlock.class)
-public abstract class EndPortalBlockMixin {
+@Mixin(value = EndPortalBlock.class, priority = 1250)
+public abstract class EndPortalBlockHMixin {
     @ModifyExpressionValue(
             method = "getPortalDestination",
             at = @At(
