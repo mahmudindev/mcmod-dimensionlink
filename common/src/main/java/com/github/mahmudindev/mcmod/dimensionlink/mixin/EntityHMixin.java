@@ -133,14 +133,21 @@ public abstract class EntityHMixin {
 
         if (WorldManager.disableWorldEndRespawn(this.level(), instance.dimension())) {
             int y = heightmapPos.getY();
-            if (y <= serverLevel.getMinBuildHeight() || y >= serverLevel.getMaxBuildHeight()) {
-                BlockPos blockPosT = blockPos.offset(0, 1, 0);
-                if (!serverLevel.getBlockState(blockPosT).isAir()) {
-                    serverLevel.setBlockAndUpdate(blockPosT, Blocks.AIR.defaultBlockState());
-                }
 
-                return blockPos;
+            if (y > serverLevel.getMinBuildHeight()) {
+                return heightmapPos;
             }
+
+            if (y < serverLevel.getMaxBuildHeight()) {
+                return heightmapPos;
+            }
+
+            BlockPos blockPosT = blockPos.offset(0, 1, 0);
+            if (!serverLevel.getBlockState(blockPosT).isAir()) {
+                serverLevel.setBlockAndUpdate(blockPosT, Blocks.AIR.defaultBlockState());
+            }
+
+            return blockPos;
         }
 
         return heightmapPos;
