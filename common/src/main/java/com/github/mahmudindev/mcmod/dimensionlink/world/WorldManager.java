@@ -1,7 +1,6 @@
 package com.github.mahmudindev.mcmod.dimensionlink.world;
 
 import com.github.mahmudindev.mcmod.dimensionlink.DimensionLink;
-import com.github.mahmudindev.mcmod.dimensionlink.config.AutoLinkConfig;
 import com.github.mahmudindev.mcmod.dimensionlink.config.Config;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -77,7 +76,7 @@ public class WorldManager {
         }
 
         Config config = Config.getConfig();
-        AutoLinkConfig autoLink = config.getAutoLink();
+        Config.AutoLink autoLink = config.getAutoLink();
 
         ResourceLocation resourceLocation = dimension.location();
         String resourceNamespace = resourceLocation.getNamespace();

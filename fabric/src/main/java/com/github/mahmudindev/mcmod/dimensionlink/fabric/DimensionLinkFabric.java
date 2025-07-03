@@ -2,7 +2,6 @@ package com.github.mahmudindev.mcmod.dimensionlink.fabric;
 
 import com.github.mahmudindev.mcmod.dimensionlink.DimensionLink;
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;

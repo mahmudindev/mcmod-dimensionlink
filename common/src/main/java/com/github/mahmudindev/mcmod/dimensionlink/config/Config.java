@@ -20,7 +20,7 @@ public class Config {
     private static Config CONFIG = new Config();
 
     @SerializedName("auto_link")
-    private final AutoLinkConfig autoLink = new AutoLinkConfig();
+    private final AutoLink autoLink = new AutoLink();
     private final List<WorldData> worlds = new LinkedList<>();
 
     private void defaults() {
@@ -36,7 +36,7 @@ public class Config {
         this.worlds.add(world);
     }
 
-    public AutoLinkConfig getAutoLink() {
+    public AutoLink getAutoLink() {
         return this.autoLink;
     }
 
@@ -67,5 +67,38 @@ public class Config {
 
     public static Config getConfig() {
         return CONFIG;
+    }
+
+    public static class AutoLink {
+        @SerializedName("exact_overworld_path")
+        private String exactOverworldPath;
+        @SerializedName("exact_the_nether_path")
+        private String exactTheNetherPath;
+        @SerializedName("exact_the_end_path")
+        private String exactTheEndPath;
+
+        public String getExactOverworldPath() {
+            return this.exactOverworldPath;
+        }
+
+        public void setExactOverworldPath(String exactOverworldPath) {
+            this.exactOverworldPath = exactOverworldPath;
+        }
+
+        public String getExactTheNetherPath() {
+            return this.exactTheNetherPath;
+        }
+
+        public void setExactTheNetherPath(String exactTheNetherPath) {
+            this.exactTheNetherPath = exactTheNetherPath;
+        }
+
+        public String getExactTheEndPath() {
+            return this.exactTheEndPath;
+        }
+
+        public void setExactTheEndPath(String exactTheEndPath) {
+            this.exactTheEndPath = exactTheEndPath;
+        }
     }
 }
