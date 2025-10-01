@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EndPortalBlock;
+import net.minecraft.world.level.storage.LevelData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -30,18 +31,19 @@ public abstract class EndPortalBlockHMixin {
         return WorldManager.getWorldTheEnd(serverLevel, original);
     }
 
-    @ModifyExpressionValue(
+    @WrapOperation(
             method = "getPortalDestination",
             at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/world/level/Level;OVERWORLD:Lnet/minecraft/resources/ResourceKey;"
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/storage/LevelData$RespawnData;dimension()Lnet/minecraft/resources/ResourceKey;"
             )
     )
-    private ResourceKey<Level> getPortalDestinationOverworldKey(
-            ResourceKey<Level> original,
+    private ResourceKey<Level> getPortalDestinationRespawnDimensionKey(
+            LevelData.RespawnData instance,
+            Operation<ResourceKey<Level>> original,
             ServerLevel serverLevel
     ) {
-        return WorldManager.getWorldOverworld(serverLevel, original);
+        return WorldManager.getWorldOverworld(serverLevel, original.call(instance));
     }
 
     @WrapOperation(
