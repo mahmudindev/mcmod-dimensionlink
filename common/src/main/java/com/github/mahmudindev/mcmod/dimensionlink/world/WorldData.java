@@ -3,7 +3,7 @@ package com.github.mahmudindev.mcmod.dimensionlink.world;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 
 public class WorldData {
@@ -26,7 +26,7 @@ public class WorldData {
             return null;
         }
 
-        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(id));
+        return ResourceKey.create(Registries.DIMENSION, Identifier.parse(id));
     }
 
     public void setOverworld(String overworld) {
@@ -44,7 +44,7 @@ public class WorldData {
             return null;
         }
 
-        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(id));
+        return ResourceKey.create(Registries.DIMENSION, Identifier.parse(id));
     }
 
     public void setTheNether(String theNether) {
@@ -62,7 +62,7 @@ public class WorldData {
             return null;
         }
 
-        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(id));
+        return ResourceKey.create(Registries.DIMENSION, Identifier.parse(id));
     }
 
     public void setTheEnd(String theEnd) {

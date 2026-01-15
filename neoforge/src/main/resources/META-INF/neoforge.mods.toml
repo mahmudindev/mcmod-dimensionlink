@@ -16,14 +16,14 @@ logoFile = "assets/dimensionlink/icon.png"
 [[dependencies.dimensionlink]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.9,)"
+versionRange = "[21.11,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.dimensionlink]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.9,)"
+versionRange = "[1.21.11,)"
 ordering = "NONE"
 side = "BOTH"
 

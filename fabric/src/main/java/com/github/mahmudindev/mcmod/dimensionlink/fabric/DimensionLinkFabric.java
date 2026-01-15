@@ -3,7 +3,7 @@ package com.github.mahmudindev.mcmod.dimensionlink.fabric;
 import com.github.mahmudindev.mcmod.dimensionlink.DimensionLink;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -20,7 +20,7 @@ public final class DimensionLinkFabric implements ModInitializer {
 
         ResourceLoader
                 .get(PackType.SERVER_DATA)
-                .registerReloader(ResourceLocation.fromNamespaceAndPath(
+                .registerReloader(Identifier.fromNamespaceAndPath(
                         DimensionLink.MOD_ID,
                         "default"
                 ), new ResourceManagerReloadListener() {

@@ -5,7 +5,7 @@ import com.github.mahmudindev.mcmod.dimensionlink.config.Config;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.Level;
@@ -27,9 +27,9 @@ public class WorldManager {
         Gson parser = new Gson();
         manager.listResources(
                 DimensionLink.MOD_ID,
-                resourceLocation -> resourceLocation.getPath().endsWith(".json")
-        ).forEach((resourceLocation, resource) -> {
-            String resourcePath = resourceLocation.getPath().replaceFirst(
+                identifier -> identifier.getPath().endsWith(".json")
+        ).forEach((identifier, resource) -> {
+            String resourcePath = identifier.getPath().replaceFirst(
                     "^%s/".formatted(DimensionLink.MOD_ID),
                     ""
             );
@@ -42,7 +42,7 @@ public class WorldManager {
                 addWorld(parser.fromJson(
                         JsonParser.parseReader(resource.openAsReader()),
                         WorldData.class
-                ), resourceLocation.getNamespace());
+                ), identifier.getNamespace());
             } catch (IOException e) {
                 DimensionLink.LOGGER.error("Failed to read datapack", e);
             }
@@ -78,11 +78,11 @@ public class WorldManager {
         Config config = Config.getConfig();
         Config.AutoLink autoLink = config.getAutoLink();
 
-        ResourceLocation resourceLocation = dimension.location();
-        String resourceNamespace = resourceLocation.getNamespace();
-        String resourcePath = resourceLocation.getPath();
+        Identifier identifier = dimension.identifier();
+        String resourceNamespace = identifier.getNamespace();
+        String resourcePath = identifier.getPath();
 
-        if (!resourceNamespace.equals(ResourceLocation.DEFAULT_NAMESPACE)) {
+        if (!resourceNamespace.equals(Identifier.DEFAULT_NAMESPACE)) {
             String aPath = autoLink.getExactOverworldPath();
             String bPath = autoLink.getExactTheNetherPath();
             String cPath = autoLink.getExactTheEndPath();
