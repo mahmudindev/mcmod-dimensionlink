@@ -1,31 +1,31 @@
 modLoader = "javafml"
-loaderVersion = "[4,)"
+loaderVersion = "${neoforge_loader_version_range}"
 issueTrackerURL = "https://github.com/mahmudindev/mcmod-dimensionlink/issues"
-license = "ARR"
+license = "${mod_license}"
 
 [[mods]]
-modId = "dimensionlink"
+modId = "${mod_id}"
 version = "${version}"
-displayName = "Dimension Link"
-authors = "mahmudindev"
+displayName = "${mod_name}"
+authors = "${mod_authors}"
 description = '''
-Create portal link between dimensions to make custom world sets.
+${description}
 '''
-logoFile = "assets/dimensionlink/icon.png"
+logoFile = "assets/${mod_id}/icon.png"
 
-[[dependencies.dimensionlink]]
+[[dependencies.${mod_id}]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.11,)"
+versionRange = "${neoforge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.dimensionlink]]
+[[dependencies.${mod_id}]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.11,)"
+versionRange = "[${minecraft_version},)"
 ordering = "NONE"
 side = "BOTH"
 
 [[mixins]]
-config = "dimensionlink.mixins.json"
+config = "${mod_id}.mixins.json"

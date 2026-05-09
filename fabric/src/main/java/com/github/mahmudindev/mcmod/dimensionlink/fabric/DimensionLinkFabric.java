@@ -20,7 +20,7 @@ public final class DimensionLinkFabric implements ModInitializer {
 
         ResourceLoader
                 .get(PackType.SERVER_DATA)
-                .registerReloader(Identifier.fromNamespaceAndPath(
+                .registerReloadListener(Identifier.fromNamespaceAndPath(
                         DimensionLink.MOD_ID,
                         "default"
                 ), new ResourceManagerReloadListener() {

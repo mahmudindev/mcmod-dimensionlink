@@ -1,7 +1,6 @@
 package com.github.mahmudindev.mcmod.dimensionlink.config;
 
 import com.github.mahmudindev.mcmod.dimensionlink.DimensionLink;
-import com.github.mahmudindev.mcmod.dimensionlink.DimensionLinkExpectPlatform;
 import com.github.mahmudindev.mcmod.dimensionlink.world.WorldData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Config {
-    private static final Path CONFIG_DIR = DimensionLinkExpectPlatform.getConfigDir();
+    private static final Path CONFIG_DIR = DimensionLink.PLATFORM.getConfigDirectory();
     private static Config CONFIG = new Config();
 
     @SerializedName("auto_link")
