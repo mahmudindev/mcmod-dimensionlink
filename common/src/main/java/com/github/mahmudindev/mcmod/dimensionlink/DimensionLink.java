@@ -2,8 +2,8 @@ package com.github.mahmudindev.mcmod.dimensionlink;
 
 import com.github.mahmudindev.mcmod.dimensionlink.config.Config;
 import com.github.mahmudindev.mcmod.dimensionlink.world.WorldManager;
+import com.github.mahmudindev.mcmod.orenoevents.event.events.ServerEvents;
 import com.mojang.logging.LogUtils;
-import net.minecraft.server.packs.resources.ResourceManager;
 import org.slf4j.Logger;
 
 public final class DimensionLink {
@@ -12,9 +12,9 @@ public final class DimensionLink {
 
     public static void init() {
         Config.load();
-    }
 
-    public static void onResourceManagerReload(ResourceManager resourceManager) {
-        WorldManager.onResourceManagerReload(resourceManager);
+        ServerEvents.RESOURCE_MANAGER_RELOAD.register(resourceManager -> {
+            WorldManager.onServerResourceManagerReload(resourceManager);
+        });
     }
 }
