@@ -3,13 +3,13 @@ package com.github.mahmudindev.mcmod.dimensionlink.config;
 import com.github.mahmudindev.mcmod.dimensionlink.DimensionLink;
 import com.github.mahmudindev.mcmod.dimensionlink.world.WorldData;
 import com.github.mahmudindev.mcmod.orenocommons.platform.UnifiedPlatform;
+import com.github.mahmudindev.mcmod.orenoconfig.config.configs.ModCommonConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.LinkedList;
@@ -45,24 +45,23 @@ public class Config {
     }
 
     public static void load() {
-        Gson parser = new GsonBuilder().setPrettyPrinting().create();
-
-        File configFile = CONFIG_DIR.resolve(DimensionLink.MOD_ID + ".json").toFile();
-        if (!configFile.exists()) {
-            CONFIG.defaults();
-
-            try (FileWriter writer = new FileWriter(configFile)) {
-                writer.write(parser.toJson(CONFIG));
-            } catch (IOException e) {
-                DimensionLink.LOGGER.error("Failed to write config", e);
-            }
-        } else {
-            try (FileReader reader = new FileReader(configFile)) {
-                CONFIG = parser.fromJson(reader, Config.class);
+        File oldConfigFile = CONFIG_DIR.resolve(DimensionLink.MOD_ID + ".json").toFile();
+        if (oldConfigFile.exists()) {
+            try (FileReader reader = new FileReader(oldConfigFile)) {
+                Gson gson = new GsonBuilder().create();
+                CONFIG = gson.fromJson(reader, Config.class);
             } catch (IOException e) {
                 DimensionLink.LOGGER.error("Failed to read config", e);
             }
+
+            oldConfigFile.delete();
+        } else {
+            CONFIG.defaults();
         }
+
+        ModCommonConfig config = new ModCommonConfig(DimensionLink.MOD_ID, "dimensionlink");
+        config.registerPojo("", CONFIG);
+        config.load();
     }
 
     public static Config getConfig() {
