@@ -18,7 +18,7 @@ import java.util.List;
 public class WorldManager {
     private static final List<WorldData> WORLDS = new LinkedList<>();
 
-    public static void onResourceManagerReload(ResourceManager manager) {
+    public static void onServerResourceManagerReload(ResourceManager manager) {
         WORLDS.clear();
 
         Config config = Config.getConfig();
